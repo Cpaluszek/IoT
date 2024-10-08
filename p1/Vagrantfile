@@ -1,11 +1,12 @@
 IMAGE = "debian/bookworm64"
 MEMORY = 1024
 CPUS = 1
+BOOT_TIMEOUT = 600
 
 Vagrant.configure("2") do |config|
   vm_configs = [
-    { hostname: "cpaluszeS", ip: "192.168.56.110" },
-    { hostname: "cpaluszeSW", ip: "192.168.56.111" }
+    { hostname: "cpaluszeS", ip: "192.168.56.110", script: "./server.sh" },
+    { hostname: "cpaluszeSW", ip: "192.168.56.111", script: "./worker.sh" }
   ]
 
   vm_configs.each do |vm|
@@ -14,12 +15,17 @@ Vagrant.configure("2") do |config|
       node.vm.hostname = vm[:hostname]
       node.vm.network "private_network", ip: vm[:ip]
 
+      node.vm.synced_folder "./shared", "/vagrant"
+
+      node.vm.boot_timeout = BOOT_TIMEOUT
+
       node.vm.provider "virtualbox" do |vb|
         vb.gui = false
         vb.memory = "1024"
         vb.cpus = CPUS
         vb.name = vm[:name]
       end
+      node.vm.provision "shell", path: vm[:script]
     end
   end
 end
