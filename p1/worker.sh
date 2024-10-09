@@ -27,7 +27,7 @@ else
 
     # K3s configuration
     # https://docs.k3s.io/cli/server
-    export INSTALL_K3S_EXEC="agent --server https://192.168.56.110:6443 --token $K3S_TOKEN"
+    export INSTALL_K3S_EXEC="agent --server https://192.168.56.110:6443 --token $K3S_TOKEN --node-ip=192.168.56.111"
 
     # Install K3s
     if curl -sfL https://get.k3s.io | sh -; then

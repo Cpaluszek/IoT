@@ -20,7 +20,7 @@ else
 
     # K3s configuration
     # https://docs.k3s.io/cli/server
-    export INSTALL_K3S_EXEC="--write-kubeconfig-mode=644"
+    export INSTALL_K3S_EXEC="--write-kubeconfig-mode=644 --node-ip=192.168.56.110"
 
     # Install K3s
     if curl -sfL https://get.k3s.io | sh -; then
@@ -30,6 +30,7 @@ else
     fi
 fi
 
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 TOKEN_FILE="/var/lib/rancher/k3s/server/node-token"
 MAX_WAIT=60
