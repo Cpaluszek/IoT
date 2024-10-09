@@ -30,6 +30,7 @@ install_k3s() {
             echo -e "K3s MASTER installation FAILED"
         fi
     fi
+    export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 }
 
 wait_for_k3s() {
