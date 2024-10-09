@@ -4,6 +4,8 @@ set -euo pipefail   # Exit on error, unset variables, and pipe failures
 
 sudo apt-get update
 
+SERVER_IP=$1
+
 install_curl() {
     if ! command -v curl &> /dev/null
     then
@@ -21,7 +23,7 @@ install_k3s() {
 
         # K3s configuration
         # https://docs.k3s.io/cli/server
-        export INSTALL_K3S_EXEC="--write-kubeconfig-mode=644"
+        export INSTALL_K3S_EXEC="--write-kubeconfig-mode=644 --node-ip=$SERVER_IP"
 
         # Install K3s
         if curl -sfL https://get.k3s.io | sh -; then
