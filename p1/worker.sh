@@ -2,6 +2,9 @@
 
 set -euo pipefail   # Exit on error, unset variables, and pipe failures
 
+SERVER_IP=$1
+WORKER_IP=$2
+
 sudo apt-get update
 
 # Install curl
@@ -27,7 +30,7 @@ else
 
     # K3s configuration
     # https://docs.k3s.io/cli/server
-    export INSTALL_K3S_EXEC="agent --server https://192.168.56.110:6443 --token $K3S_TOKEN --node-ip=192.168.56.111"
+    export INSTALL_K3S_EXEC="agent --server https://$SERVER_IP:6443 --token $K3S_TOKEN --node-ip=$WORKER_IP"
 
     # Install K3s
     if curl -sfL https://get.k3s.io | sh -; then
