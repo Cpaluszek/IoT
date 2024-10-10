@@ -1,5 +1,5 @@
 IMAGE = "debian/bookworm64"
-MEMORY = 1024
+MEMORY = "2048"
 CPUS = 1
 BOOT_TIMEOUT = 600
 
@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
 
       node.vm.provider "virtualbox" do |vb|
         vb.gui = false
-        vb.memory = "1024"
+        vb.memory = MEMORY
         vb.cpus = CPUS
         vb.name = vm[:name]
       end
