@@ -50,6 +50,46 @@ vagrant@cpaluszeSW:~$ sudo systemctl status k3s-agent   # Check if the k3s-agent
 ```
 
 ## Part 2: K3s and three simple applications
+This project sets up a lightweight Kubernetes cluster using K3s on one virtual machines provisioned by Vagrant. The setup consists of one server running the debian/bookworm64 image.
+
+### Vagrant setup
+Server node:
+- hostname: `cpaluszeS`
+- ip: `192.68.156.110`
+
+### K3s config
+Provisioning scripts are utilized to install and configure K3s on both the server and the agent. The server is provisioned first to generate the token required for the agent to join the cluster.
+
+**Server**:
+- Install `curl` using `apt-get`
+- The `INSTALL_K3S_EXEC` environment variable is used to configure the installation:
+    - `--write-kubeconfig-mode=644` - Sets permissions for the kubeconfig file to be readable by all users.
+- Install `k3s` using `curl -sfL https://get.k3s.io | sh -`
+- The script waits for the token file generation and copies it in the shared folder.
+
+### Kubernetes manifests
+We setup 3 applications based on [hello-kubernetes docker image](https://github.com/paulbouwer/hello-kubernetes)
+
+- [app1.yaml](./p2/app1.yaml)
+- [app2.yaml](./p2/app2.yaml)
+- [app3.yaml](./p2/app3.yaml)
+- [ingress.yaml](./p2/ingress.yaml)
+
+The 3 apps are identical, except the app2 which is replicated 3 times.
+Ingress is used to make the apps accessible outside of the cluster.
+
+The provisionning script apply these manifests after the dependencies installation.
+
+### Test the websites
+- [Header value extension firefox](https://addons.mozilla.org/fr/firefox/addon/modify-header-value/)
+
+```sh
+curl http://192.168.56.110  # app3
+curl http://app1.com        # app1
+curl http://app2.com        # app2 should have a different pod id each time
+```
 
 ## Part 3: K3d and Argo CD
+
+
 
