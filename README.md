@@ -91,5 +91,10 @@ curl http://app2.com        # app2 should have a different pod id each time
 
 ## Part 3: K3d and Argo CD
 
+### K3d vs K3s
+k3d is a lightweight wrapper to run k3s (Rancher Lab’s minimal Kubernetes distribution) in docker.
+
+k3d makes it very easy to create single- and multi-node k3s clusters in docker, e.g. for local development on Kubernetes.
+
 
 
