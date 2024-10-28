@@ -85,36 +85,9 @@ install_k3d() {
     fi
 }
 
-print_versions() {
-    log "info" "Printing versions of installed programs..."
-
-    # Docker version
-    if command -v docker > /dev/null; then
-        docker --version
-    else
-        log "error" "Docker is not installed"
-    fi
-
-    # k3d version
-    if command -v k3d > /dev/null; then
-        k3d version
-    else
-        log "error" "k3d is not installed"
-    fi
-
-    # kubectl version
-    if command -v kubectl > /dev/null; then
-        kubectl version
-    else
-        log "error" "kubectl is not installed"
-    fi
-
-}
-
 log "info" "Installing required dependencies..."
 sudo apt-get install -y apt-transport-https ca-certificates curl net-tools
 install_docker
 install_kubectl
 install_k3d
 log "success" "Dependencies installed successfully."
-print_versions

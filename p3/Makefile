@@ -2,7 +2,7 @@ GREEN=\033[32m
 RESET=\033[0m
 
 CLUSTER_NAME="ci-cluster"
-POD_NAME="app"
+POD_NAME="my-app"
 
 # Default target when 'make' is run without arguments
 all: install-dependencies setup-cluster
