@@ -77,6 +77,5 @@ if [ -n "$(sudo lsof -i :80)" ]; then
 fi
 
 log "info" "Setting up port forwarding for GitLab..."
-sudo kubectl port-forward svc/gitlab-webservice-default -n gitlab 80:8181 2>&1 >/dev/null &
-#localhost:80 - login=root
+sudo kubectl port-forward svc/gitlab-webservice-default -n gitlab 80:8181 &>/dev/null &
 
