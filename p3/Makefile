@@ -5,7 +5,7 @@ CLUSTER_NAME="ci-cluster"
 POD_NAME="my-app"
 
 # Default target when 'make' is run without arguments
-all: install-dependencies setup-cluster
+all: install-dependencies setup
 
 # Install required dependencies by running an external script
 install-dependencies:

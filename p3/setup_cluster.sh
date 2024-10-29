@@ -51,7 +51,7 @@ check_dependencies() {
 setup_k3d_cluster() {
     log "info" "creating cluster '${CLUSTER_NAME}'"
     if ! k3d cluster list | grep -q "${CLUSTER_NAME}"; then
-        k3d cluster create $CLUSTER_NAME
+        k3d cluster create $CLUSTER_NAME --servers-memory 8G
         log "success" "cluster '${CLUSTER_NAME}' created successfully"
     fi
     k3d kubeconfig write $CLUSTER_NAME
@@ -155,6 +155,7 @@ print_infos() {
     argocd app get ${APP_NAME}
     kubectl get pods -n dev
     # Get ingress IP and map to /etc/hosts
+    sudo sed -i.bak "/${APP_HOST}/d" /etc/hosts
     IP=$(kubectl get ingress -n dev ingress -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
     if [[ -n "$IP" ]]; then
         echo "$IP ${APP_HOST}" | sudo tee -a /etc/hosts

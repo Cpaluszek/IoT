@@ -1,3 +1,4 @@
 .vagrant/
 shared/
 argo_password.txt
+gitlab_root_password.txt
